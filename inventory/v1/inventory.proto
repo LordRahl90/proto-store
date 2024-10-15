@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package inventory.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/LordRahl90/commerce/inventory";
+option java_package = "com.lordrahl90.commerce.inventory";
+
+message Item {
+  string id = 1;
+  string sku = 2;
+  string name = 3;
+  string description = 4;
+  int64 quantity = 5;
+  string unit = 6;
+  google.protobuf.Timestamp last_updated_at = 7;
+}
+
+message GetRequest {
+  string id = 1;
+}
+
+message ListResponse {
+  repeated Item items = 1;
+}
+
+message CreateRequest {
+  string sku = 1;
+  string name = 2;
+  string description = 3;
+  int64 quantity = 4;
+  string unit = 5;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string sku = 2;
+  string name = 3;
+  string description = 4;
+  int64 quantity = 5;
+  string unit = 6;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message ListRequest {
+  string sku = 1;
+}
+
+message GetResponse {
+  Item item = 1;
+}
+
+message CreateResponse {
+  Item item = 1;
+}
+
+message UpdateResponse {
+  Item item = 1;
+}
+
+message DeleteResponse {
+  Item item = 1;
+}
+
+service InventoryService {
+  rpc Get (GetRequest) returns (GetResponse);
+  rpc Create (CreateRequest) returns (CreateResponse);
+  rpc Update (UpdateRequest) returns (UpdateResponse);
+  rpc Delete (DeleteRequest) returns (DeleteResponse);
+  rpc List (ListRequest) returns (ListResponse);
+}

@@ -1,9 +1,8 @@
 syntax = "proto3";
 
-package invoicer;
+package invoicer.v1;
 
 import "google/protobuf/timestamp.proto";
-import "google/protobuf/any.proto";
 
 option go_package = "github.com/LordRahl90/invoicer";
 option java_package = "com.lordrahl90.invoicer";
@@ -25,7 +24,7 @@ message Address {
   string phone = 3;
   string email = 4;
   string website = 5;
-  string taxId = 6;
+  string tax_id = 6;
 }
 
 message Tax {
@@ -34,9 +33,9 @@ message Tax {
   string description = 3;
 }
 
-message Invoice {
+message CreateRequest {
   string id = 1;
-  string orderID = 2;
+  string order_id = 2;
   Address from = 4;
   Address to = 5;
   google.protobuf.Timestamp date = 6;
@@ -46,11 +45,11 @@ message Invoice {
   Amount total = 10;
 }
 
-message Response {
+message CreateResponse {
   bytes pdf = 1;
   bytes doc = 2;
 }
 
-service Invoicer {
-  rpc Create (Invoice) returns (Response);
+service InvoicerService {
+  rpc Create (CreateRequest) returns (CreateResponse);
 }
